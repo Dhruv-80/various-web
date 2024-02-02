@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Greeting with Time</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="greeting"></h1>
+    <p id="current-time"></p>
+
+    <script>
+        function getGreeting() {
+            const currentTime = new Date().getHours();
+
+            if (currentTime >= 5 && currentTime < 12) {
+                return "Good morning!";
+            } else if (currentTime >= 12 && currentTime < 18) {
+                return "Good afternoon!";
+            } else {
+                return "Good evening!";
+            }
+        }
+
+        function getCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            return `${hours}:${minutes}:${seconds}`;
+        }
+
+        document.getElementById('greeting').textContent = getGreeting();
+        document.getElementById('current-time').textContent = `Current time: ${getCurrentTime()}`;
+        
+        // Update time every second
+        setInterval(() => {
+            document.getElementById('current-time').textContent = `Current time: ${getCurrentTime()}`;
+        }, 1000);
+    </script>
+</body>
+</html>

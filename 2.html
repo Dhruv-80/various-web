@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<head>
+    <title>Interactive Quiz</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #quiz-container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        button {
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌟 Quiz Time! 🌟</h1>
+    <div id="quiz-container">
+        <p id="question"></p>
+        <input type="text" id="answerInput" placeholder="Your Answer">
+        <button type="button" onclick="checkAnswer()">Submit Answer</button>
+        <button type="button" id="nextBtn" style="display: none;" onclick="nextQuestion()">Next Question</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the capital of France?",
+                answer: "Paris"
+            },
+            {
+                question: "Which planet is known as the Red Planet?",
+                answer: "Mars"
+            },
+            {
+                question: "What is the largest mammal in the world?",
+                answer: "Blue Whale"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function displayQuestion() {
+            const questionElement = document.getElementById('question');
+
+            questionElement.textContent = questions[currentQuestionIndex].question;
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answerInput').value.trim().toLowerCase();
+            const correctAnswer = questions[currentQuestionIndex].answer.toLowerCase();
+
+            const resultElement = document.getElementById('result');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (userAnswer === correctAnswer) {
+                resultElement.innerHTML = "🎉 Correct! Well done! 🎉";
+                nextBtn.style.display = "block";
+            } else {
+                resultElement.innerHTML = `❌ Incorrect. The correct answer is: ${questions[currentQuestionIndex].answer}`;
+                nextBtn.style.display = "none";
+            }
+        }
+
+        function nextQuestion() {
+            const resultElement = document.getElementById('result');
+            const nextBtn = document.getElementById('nextBtn');
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+                document.getElementById('answerInput').value = "";
+                resultElement.textContent = "";
+                nextBtn.style.display = "none";
+            } else {
+                resultElement.innerHTML = "<br>🌟 Quiz completed! Thank you. 🌟";
+                document.getElementById('answerInput').disabled = true;
+                document.querySelector('button').disabled = true;
+                nextBtn.disabled = true;
+            }
+        }
+        displayQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        form {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 10px;
+            font-size: 18px;
+            color: green;
+        }
+
+        #error {
+            margin-top: 10px;
+            font-size: 18px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Registration Form</h1>
+    <form id="registrationForm" onsubmit="validateForm(); return false;">
+        <input type="text" id="name" placeholder="Name">
+        <br>
+        <input type="text" id="email" placeholder="Email">
+        <br>
+        <input type="password" id="password" placeholder="Password">
+        <br>
+        <input type="text" id="phone" placeholder="Phone Number">
+        <br>
+        <button type="submit">Submit</button>
+        <div id="result"></div>
+        <div id="error"></div>
+    </form>
+
+    <script>
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const phone = document.getElementById('phone').value;
+
+            // Validate Name
+            const nameRegex = /^[A-Za-z ]{3,}$/;
+            const isNameValid = nameRegex.test(name);
+
+            // Validate Email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const isEmailValid = emailRegex.test(email);
+
+            // Validate Password
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            const isPasswordValid = passwordRegex.test(password);
+
+            // Validate Phone Number
+            const phoneRegex = /^\d{10}$/;
+            const isPhoneValid = phoneRegex.test(phone);
+
+            if (isNameValid && isEmailValid && isPasswordValid && isPhoneValid) {
+                document.getElementById('result').innerHTML = "Form submitted successfully!";
+                document.getElementById('error').innerHTML = "";
+            } else {
+                document.getElementById('result').innerHTML = "";
+                document.getElementById('error').innerHTML = "Please check the form for errors.";
+            }
+        }
+    </script>
+</body>
+</html>
